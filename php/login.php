@@ -1,29 +1,35 @@
 <?php
-	
 	session_start();
 
 	include "connect.php";
 
-	$username = $_POST["username"];
-	$password = $_POST["password"];
+	$username = mysql_real_escape_string($_POST["username"]);
+	$password = mysql_real_escape_string($_POST["password"]);
 
-	//var_dump($_POST);
+	$salt = "d0be2dc421be4fcd0172e5afceea3970e2f3d940";
 
-	$query = mysql_query("SELECT * FROM users WHERE username='$username'") or die("Incorrect credentials.");
-	$info = mysql_fetch_array($query) or die("Incorrect credentials.");
-
-	$correct_password = $info["password"];
-	$id = $info["id"];
-
-	if ($password == $correct_password)
+	try
 	{
-		$_SESSION["logged_in"] = true;
-		header("location: /admin.php");
+		$query = mysql_query("SELECT * FROM users WHERE username='$username'");
+		$info = mysql_fetch_array($query);
+
+		$correct_password = $info["password"];
+		$id = $info["id"];
+
+		if (sha1($salt.$password) == $correct_password)
+		{
+			$_SESSION["logged_in"] = true;
+			header("location: /admin.php");
+		}
+		else
+		{
+			$_SESSION["logged_in"] = false;
+			header("location: /index.php?authenticated=false");
+		}
 	}
-	else
+	catch (Exception $e)
 	{
 		$_SESSION["logged_in"] = false;
-		header("location: ?authenticated=false");
+		header("location: /index.php?authenticated=false");
 	}
-
 ?>
