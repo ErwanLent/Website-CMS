@@ -53,7 +53,24 @@
 
 		        break;
 		    case "media":
-		        
+		        $inner_template = file_get_contents("media.html");
+
+		        // Pull first title
+				$first_title_query = mysql_query("SELECT `content` FROM `media_page` WHERE `name` = 'title_one'");
+				$first_title_array = mysql_fetch_array($first_title_query);
+
+				$first_title = $first_title_array["content"];
+
+				// Pull first content
+				$first_content_query = mysql_query("SELECT `content` FROM `media_page` WHERE `name` = 'content_one'");
+				$first_content_array = mysql_fetch_array($first_content_query);
+
+				$first_content = $first_content_array["content"];
+
+				// Update content
+		        $inner_content = str_replace("<%FIRST_TITLE%>", $first_title, $inner_template);
+		        $inner_content = str_replace("<%FIRST_CONTENT%>", $first_content, $inner_content);
+	
 		        break;
 		    case "created_page":
 		        

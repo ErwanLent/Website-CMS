@@ -10,11 +10,8 @@ $(document).ready(function() {
   =======================================================================================*/
 
   // Start editor
-  // var elements = document.querySelectorAll('#first-title'),
-  //   editor = new MediumEditor(elements, {
-  //     disableToolbar : true,
-  //     forcePlainText : true
-  // });
+  var elements = document.querySelectorAll('.editable'),
+    editor = new MediumEditor(elements);
 
   // Elastic text areas
   $('.content-input').elastic();
@@ -36,7 +33,8 @@ $(document).ready(function() {
         $('.loader').show();
     });
     
-    
+    var animationSpeed = 2500;
+
     switch(page)
     {
       case "home":
@@ -67,7 +65,7 @@ $(document).ready(function() {
                     $('.message-bar').slideToggle();
                   });
                 });
-              }, 2000);
+              }, animationSpeed);
 
             }
             else
@@ -81,12 +79,54 @@ $(document).ready(function() {
                     $('.message-bar').slideToggle();
                   });
                 });
-              }, 2000);
+              }, animationSpeed);
             }
         });
 
         break;
       case "media":
+        // Content to update
+        var firstTitle = $('#first-title').val();
+        var firstContent = $('.editable').html();
+        // Post updated content
+        $.post( "php/publish.php", { 
+            page : page,
+            firstTitle : firstTitle,
+            secondTitle : secondTitle,
+            firstContent : firstContent,
+            secondContent : secondContent
+          }).done(function( data ) {
+            
+            if (data == 'true')
+            {
+              // Success
+              setTimeout(function() {
+                $('.loader').fadeOut(function() {
+                  $('.loading-overlay').fadeOut(function() {
+                    $('body').css('overflow', 'auto');
+                    $('.message-bar').css('background-color', 'green');
+                    $('.message-bar').html('Update published.');
+                    $('.message-bar').slideToggle();
+                  });
+                });
+              }, animationSpeed);
+
+            }
+            else
+            {
+              console.log(data);
+              setTimeout(function() {
+                $('.loader').fadeOut(function() {
+                  $('.loading-overlay').fadeOut(function() {
+                    $('body').css('overflow', 'auto');
+                    $('.message-bar').css('background-color', 'red');
+                    $('.message-bar').html('An error occurred.');
+                    $('.message-bar').slideToggle();
+                  });
+                });
+              }, animationSpeed);
+            }
+        });
         break;
       default:
         break;

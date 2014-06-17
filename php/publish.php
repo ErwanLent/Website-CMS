@@ -24,6 +24,15 @@
 
 			break;
 		case "media":
+			// Media assets updated content
+			$first_title = mysql_real_escape_string($_POST["firstTitle"]);
+			$first_content = mysql_real_escape_string($_POST["firstContent"]);
+
+			// Update db content
+			mysql_query("UPDATE `media_page` SET `content`='$first_title' WHERE `name`='title_one'");
+			mysql_query("UPDATE `media_page` SET `content`='$first_content' WHERE `name`='content_one'");
+
+			echo "true";
 			break;
 		default:
 			break;
