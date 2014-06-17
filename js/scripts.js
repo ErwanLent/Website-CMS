@@ -26,6 +26,11 @@ $(document).ready(function() {
   // On publish
   $('#publish').click(function() {
 
+    if ($('.message-bar').is(':visible'))
+    {
+      $('.message-bar').slideToggle();
+    }
+
     $('body').css('overflow', 'hidden');
     $('.loading-overlay').fadeIn(function() {
         $('.loader').show();
@@ -57,6 +62,9 @@ $(document).ready(function() {
                 $('.loader').fadeOut(function() {
                   $('.loading-overlay').fadeOut(function() {
                     $('body').css('overflow', 'auto');
+                    $('.message-bar').css('background-color', 'green');
+                    $('.message-bar').html('Update published.');
+                    $('.message-bar').slideToggle();
                   });
                 });
               }, 2000);
@@ -64,9 +72,15 @@ $(document).ready(function() {
             }
             else
             {
-              // Failure
               setTimeout(function() {
-                
+                $('.loader').fadeOut(function() {
+                  $('.loading-overlay').fadeOut(function() {
+                    $('body').css('overflow', 'auto');
+                    $('.message-bar').css('background-color', 'red');
+                    $('.message-bar').html('An error occurred.');
+                    $('.message-bar').slideToggle();
+                  });
+                });
               }, 2000);
             }
         });

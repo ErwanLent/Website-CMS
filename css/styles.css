@@ -99,6 +99,23 @@ body {
 	animation: fadein 2s;
 }
 
+.message-bar
+{
+	display: none;
+	background-color: green;
+	width: 100%;
+	height: 30px;
+	color: white;
+	text-align: center;
+	padding: 4px;
+	margin: auto;
+}
+
+.container
+{
+
+}
+
 @keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }
