@@ -32,7 +32,10 @@ body {
 	text-align: center;
 }
 
-
+.publish-controls
+{
+	margin-top: 35px;
+}
 
 /* collapsed sidebar styles */
 @media screen and (max-width: 767px) {

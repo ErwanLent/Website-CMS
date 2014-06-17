@@ -42,12 +42,12 @@
           <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
             <ul class="nav">
               <li class="active">
-                <a href="#">
+                <a href="?page=home">
                   Homepage
                 </a>
               </li>
               <li>
-                <a href="#">
+                <a href="?page=media">
                   Media Assets
                 </a>
               </li>
@@ -55,18 +55,13 @@
           </div>
           <!-- main area -->
           <div class="col-xs-12 col-sm-9">
-            <h1 class="page-title">
-              Home Page
-            </h1>
-            <h3>Location Based Chatrooms</h3>
-            <p>
-                Form groups with friends, or connect with strangers. ShoutOut allows you to create and join chatrooms based on your interests and location. Stay anonymous or share your identity. You can private message users you meet while chatting and make your own password-protected chatrooms.
-            </p>
-            <h3>Chat With Users Locally</h3>
-            <p>
-              With ShoutOut, users can create chatrooms with a location and radius allowing anyone within range to join and start chatting. Want to find out where the best parties are? Need to find a study group for that exam coming up? Join a local chatroom and see what's going on.
-            </p>
-            
+            <div id="editable-content">
+              <%CONTENT%>
+            </div>
+            <div class="publish-controls">
+              <button type="button" id="publish" class="btn btn-success">Publish</button>
+              <button type="button" class="btn btn-danger">Discard</button>
+            </div>
           </div>
           <!-- /.col-xs-12 main -->
         </div>
@@ -76,11 +71,8 @@
     </div>
     <!--/.page-container-->
     <!-- script references -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js">
-    </script>
-    <script src="js/bootstrap.min.js">
-    </script>
-    <script src="js/scripts.js">
-    </script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
   </body>
 </html>

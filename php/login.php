@@ -1,7 +1,7 @@
 <?php
-	session_start();
-
 	include "connect.php";
+
+	session_start();
 
 	$username = mysql_real_escape_string($_POST["username"]);
 	$password = mysql_real_escape_string($_POST["password"]);
