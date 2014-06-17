@@ -19,7 +19,7 @@
 		if (sha1($salt.$password) == $correct_password)
 		{
 			$_SESSION["logged_in"] = true;
-			header("location: /admin.php");
+			header("location: /admin.php?page=home");
 		}
 		else
 		{

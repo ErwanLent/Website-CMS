@@ -45,7 +45,6 @@
 
 				$second_content = $second_content_array["content"];
 
-
 				// Update content
 		        $inner_content = str_replace("<%FIRST_TITLE%>", $first_title, $inner_template);
 		        $inner_content = str_replace("<%SECOND_TITLE%>", $second_title, $inner_content);
