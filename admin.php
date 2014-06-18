@@ -15,6 +15,20 @@
 		{
 			$page = $_GET["page"];
 		}
+		else
+		{
+			$page = "home";
+		}
+
+		// Get all pages in side bar
+        $sqlCommand = "SELECT `Title` FROM `pages`";
+		$result = mysql_query($sqlCommand);
+      	$all_pages = "";
+		while ($row = mysql_fetch_array($result, MYSQL_NUM)) {
+			$all_pages .= "<li class=\"active\"><a href=\"?page=".urlencode($row[0])."\">".$row[0]."</a></li>";
+		}
+
+		$template = str_replace("<%PAGES%>", $all_pages, $template);
 
 		switch ($page) 
 		{
@@ -72,11 +86,19 @@
 		        $inner_content = str_replace("<%FIRST_CONTENT%>", $first_content, $inner_content);
 	
 		        break;
-		    case "created_page":
-		        
-		        break;
 		    default:
+		    	$inner_template = file_get_contents("custom.html");
 
+		    	// Get content of page
+				$page_content_query = mysql_query("SELECT `Content` FROM `pages` WHERE `Title` = '$page'");
+				$page_content_array = mysql_fetch_array($page_content_query);
+
+				$content = $page_content_array["Content"];
+				
+				// Update content
+				$inner_content = str_replace("<%NAME%>", $page, $inner_template);
+		        $inner_content = str_replace("<%FIRST_CONTENT%>", $content, $inner_content);
+		        
        			break;
 		}
 
