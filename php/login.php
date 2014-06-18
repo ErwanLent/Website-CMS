@@ -19,17 +19,17 @@
 		if (sha1($salt.$password) == $correct_password)
 		{
 			$_SESSION["logged_in"] = true;
-			header("location: /admin.php?page=home");
+			header("location: ../admin.php?page=home");
 		}
 		else
 		{
 			$_SESSION["logged_in"] = false;
-			header("location: /index.php?authenticated=false");
+			header("location: ../index.php?authenticated=false");
 		}
 	}
 	catch (Exception $e)
 	{
 		$_SESSION["logged_in"] = false;
-		header("location: /index.php?authenticated=false");
+		header("location: ../index.php?authenticated=false");
 	}
 ?>

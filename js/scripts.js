@@ -1,10 +1,11 @@
+var animationSpeed = 2500;
+
 $(document).ready(function() {
   $('[data-toggle=offcanvas]').click(function() {
     $('.row-offcanvas').toggleClass('active');
   });
 
   var page = getUrlVars()["page"];
-  var animationSpeed = 2500;
 
   /*=====================================================================================
     Rich Editor
@@ -82,7 +83,7 @@ $(document).ready(function() {
           }).done(function( data ) {
             finishAnimation(data, "Page successully created.");
             setTimeout(function(){
-              window.location = "/admin.php?page=" + encodeURIComponent(newTitle);
+              window.location = "admin.php?page=" + encodeURIComponent(newTitle);
             }, animationSpeed + 300);
         });
         break;
@@ -121,7 +122,7 @@ $('#delete').click(function() {
         finishAnimation(data, "Page successully deleted");
 
         setTimeout(function(){
-          window.location = "/admin.php?page=home";
+          window.location = "admin.php?page=home";
         }, animationSpeed + 300);
     });
 
