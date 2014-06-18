@@ -32,8 +32,6 @@ $(document).ready(function() {
     $('.loading-overlay').fadeIn(function() {
         $('.loader').show();
     });
-    
-    var animationSpeed = 2500;
 
     switch(page)
     {
@@ -52,35 +50,7 @@ $(document).ready(function() {
             firstContent : firstContent,
             secondContent : secondContent
           }).done(function( data ) {
-            
-            if (data == 'true')
-            {
-              // Success
-              setTimeout(function() {
-                $('.loader').fadeOut(function() {
-                  $('.loading-overlay').fadeOut(function() {
-                    $('body').css('overflow', 'auto');
-                    $('.message-bar').css('background-color', 'green');
-                    $('.message-bar').html('Update published.');
-                    $('.message-bar').slideToggle();
-                  });
-                });
-              }, animationSpeed);
-
-            }
-            else
-            {
-              setTimeout(function() {
-                $('.loader').fadeOut(function() {
-                  $('.loading-overlay').fadeOut(function() {
-                    $('body').css('overflow', 'auto');
-                    $('.message-bar').css('background-color', 'red');
-                    $('.message-bar').html('An error occurred.');
-                    $('.message-bar').slideToggle();
-                  });
-                });
-              }, animationSpeed);
-            }
+            finishAnimation(data);
         });
 
         break;
@@ -88,47 +58,27 @@ $(document).ready(function() {
         // Content to update
         var firstTitle = $('#first-title').val();
         var firstContent = $('.editable').html();
+
         // Post updated content
         $.post( "php/publish.php", { 
             page : page,
             firstTitle : firstTitle,
-            secondTitle : secondTitle,
-            firstContent : firstContent,
-            secondContent : secondContent
+            firstContent : firstContent
           }).done(function( data ) {
-            
-            if (data == 'true')
-            {
-              // Success
-              setTimeout(function() {
-                $('.loader').fadeOut(function() {
-                  $('.loading-overlay').fadeOut(function() {
-                    $('body').css('overflow', 'auto');
-                    $('.message-bar').css('background-color', 'green');
-                    $('.message-bar').html('Update published.');
-                    $('.message-bar').slideToggle();
-                  });
-                });
-              }, animationSpeed);
-
-            }
-            else
-            {
-              console.log(data);
-              setTimeout(function() {
-                $('.loader').fadeOut(function() {
-                  $('.loading-overlay').fadeOut(function() {
-                    $('body').css('overflow', 'auto');
-                    $('.message-bar').css('background-color', 'red');
-                    $('.message-bar').html('An error occurred.');
-                    $('.message-bar').slideToggle();
-                  });
-                });
-              }, animationSpeed);
-            }
+            finishAnimation(data);
         });
         break;
       default:
+        // Content to update
+        var content = $('.editable').html();
+
+        // Post updated content
+        $.post( "php/publish.php", { 
+            page : page,
+            updatedContent : content
+          }).done(function( data ) {
+            finishAnimation(data);
+        });
         break;
     }
 
@@ -147,4 +97,39 @@ function getUrlVars() {
         vars[key] = value;
     });
     return vars;
+}
+
+function finishAnimation(response)
+{
+  var animationSpeed = 2500;
+  
+  if (response == 'true')
+  {
+    // Success
+    setTimeout(function() {
+      $('.loader').fadeOut(function() {
+        $('.loading-overlay').fadeOut(function() {
+          $('body').css('overflow', 'auto');
+          $('.message-bar').css('background-color', 'green');
+          $('.message-bar').html('Update published.');
+          $('.message-bar').slideToggle();
+        });
+      });
+    }, animationSpeed);
+
+  }
+  else
+  {
+    // Failure
+    setTimeout(function() {
+      $('.loader').fadeOut(function() {
+        $('.loading-overlay').fadeOut(function() {
+          $('body').css('overflow', 'auto');
+          $('.message-bar').css('background-color', 'red');
+          $('.message-bar').html('An error occurred.');
+          $('.message-bar').slideToggle();
+        });
+      });
+    }, animationSpeed);
+  }
 }

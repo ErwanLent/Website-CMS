@@ -3,7 +3,7 @@
 
 	session_start();
 
-	$page = mysql_real_escape_string($_POST["page"]);
+	$page = urldecode(mysql_real_escape_string($_POST["page"]));
 
 	switch($page)
 	{
@@ -35,6 +35,14 @@
 			echo "true";
 			break;
 		default:
+			// Updated content
+			$updated_content = mysql_real_escape_string($_POST["updatedContent"]);
+
+			// Update db content
+			mysql_query("UPDATE `pages` SET `Content`='$updated_content' WHERE `Title` = '$page'");
+
+			echo "true";
+
 			break;
 	}
 
