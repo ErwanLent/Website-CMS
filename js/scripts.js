@@ -4,6 +4,7 @@ $(document).ready(function() {
   });
 
   var page = getUrlVars()["page"];
+  var animationSpeed = 2500;
 
   /*=====================================================================================
     Rich Editor
@@ -50,7 +51,7 @@ $(document).ready(function() {
             firstContent : firstContent,
             secondContent : secondContent
           }).done(function( data ) {
-            finishAnimation(data);
+            finishAnimation(data, "Page successully published.");
         });
 
         break;
@@ -65,7 +66,24 @@ $(document).ready(function() {
             firstTitle : firstTitle,
             firstContent : firstContent
           }).done(function( data ) {
-            finishAnimation(data);
+            finishAnimation(data, "Page successully published.");
+        });
+        break;
+      case "new":
+        // Content to update
+        var newTitle = $('#new-title').val();
+        var newContent = $('.editable').html();
+
+        // Post updated content
+        $.post( "php/publish.php", { 
+            page : page,
+            newTitle : newTitle,
+            newContent : newContent
+          }).done(function( data ) {
+            finishAnimation(data, "Page successully created.");
+            setTimeout(function(){
+              window.location = "/admin.php?page=" + encodeURIComponent(newTitle);
+            }, animationSpeed + 300);
         });
         break;
       default:
@@ -77,18 +95,43 @@ $(document).ready(function() {
             page : page,
             updatedContent : content
           }).done(function( data ) {
-            finishAnimation(data);
+            finishAnimation(data, "Page successully published.");
         });
         break;
     }
-
   });
+
+$('#delete').click(function() {
+
+    if ($('.message-bar').is(':visible'))
+    {
+      $('.message-bar').slideToggle();
+    }
+
+    $('body').css('overflow', 'hidden');
+    $('.loading-overlay').fadeIn(function() {
+        $('.loader').show();
+    });
+
+    $.post( "php/publish.php", { 
+        page : "delete",
+        pageTitle : page
+      }).done(function( data ) {
+        console.log(data);
+        finishAnimation(data, "Page successully deleted");
+
+        setTimeout(function(){
+          window.location = "/admin.php?page=home";
+        }, animationSpeed + 300);
+    });
+
+});
 
   // On Discard
   $('#discard').click(function() {
     location.reload();
   });
-
+  
 });
 
 function getUrlVars() {
@@ -99,10 +142,9 @@ function getUrlVars() {
     return vars;
 }
 
-function finishAnimation(response)
+function finishAnimation(response, successMessage)
 {
-  var animationSpeed = 2500;
-  
+
   if (response == 'true')
   {
     // Success
@@ -111,12 +153,11 @@ function finishAnimation(response)
         $('.loading-overlay').fadeOut(function() {
           $('body').css('overflow', 'auto');
           $('.message-bar').css('background-color', 'green');
-          $('.message-bar').html('Update published.');
+          $('.message-bar').html(successMessage);
           $('.message-bar').slideToggle();
         });
       });
     }, animationSpeed);
-
   }
   else
   {

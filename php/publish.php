@@ -34,6 +34,27 @@
 
 			echo "true";
 			break;
+		case "new":
+			// New page content
+			$new_title = mysql_real_escape_string($_POST["newTitle"]);
+			$new_content = mysql_real_escape_string($_POST["newContent"]);
+
+			// Update db content
+			mysql_query("INSERT INTO `shoutout_cms`.`pages` (`Title`, `Content`) VALUES ('$new_title', '$new_content');");
+
+			echo "true";
+
+			break;
+		case "delete":
+			// Page name to delete
+			$page_title = urldecode(mysql_real_escape_string($_POST["pageTitle"]));
+
+			// Delete page in db
+			mysql_query("DELETE FROM `pages` WHERE `Title` = '$page_title'");
+
+			echo "true";
+
+			break;
 		default:
 			// Updated content
 			$updated_content = mysql_real_escape_string($_POST["updatedContent"]);

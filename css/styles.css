@@ -117,6 +117,22 @@ body {
 	border: none;
 }
 
+#create
+{
+	font-weight: 700;
+	margin-top: 15px;
+}
+
+#create span
+{
+	padding-right: 5px;
+}
+
+#new-title
+{
+	font-size: 36px;
+}
+
 @keyframes fadein {
     from { opacity: 0; }
     to   { opacity: 1; }

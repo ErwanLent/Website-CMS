@@ -34,8 +34,8 @@
             </button>
             <a class="navbar-brand" href="/admin.php?page=home">
               ShoutOut CMS
-            </a
-          >         </div>
+            </a>
+          </div>
         </div>
       </div>
       <div class="message-bar"></div>
@@ -58,6 +58,10 @@
             <ul class="nav">
               <%PAGES%>
             </ul>
+            <a href="/admin.php?page=new" id="create" class="btn btn-primary">
+              <span class="glyphicon glyphicon-plus"></span>
+              New Page
+            </a>
           </div>
           <!-- main area -->
           <div class="col-xs-12 col-sm-9">
@@ -65,8 +69,7 @@
               <%CONTENT%>
             </div>
             <div class="publish-controls">
-              <button type="button" id="publish" class="btn btn-success">Publish</button>
-              <button type="button" id="discard" class="btn btn-danger">Discard</button>
+              <%CONTROLS%>
             </div>
           </div>
           <!-- /.col-xs-12 main -->

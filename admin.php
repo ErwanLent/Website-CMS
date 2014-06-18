@@ -34,6 +34,10 @@
 		{
 		    case "home":
 		        $inner_template = file_get_contents("home.html");
+		        $controls = file_get_contents("home_controls.html");
+
+		        // Update template with controls
+		        $template = str_replace("<%CONTROLS%>", $controls, $template);
 
 		        // Pull first title
 				$first_title_query = mysql_query("SELECT `content` FROM `home_page` WHERE `name` = 'title_one'");
@@ -68,6 +72,10 @@
 		        break;
 		    case "media":
 		        $inner_template = file_get_contents("media.html");
+		       	$controls = file_get_contents("home_controls.html");
+
+		        // Update template with controls
+		        $template = str_replace("<%CONTROLS%>", $controls, $template);
 
 		        // Pull first title
 				$first_title_query = mysql_query("SELECT `content` FROM `media_page` WHERE `name` = 'title_one'");
@@ -86,8 +94,19 @@
 		        $inner_content = str_replace("<%FIRST_CONTENT%>", $first_content, $inner_content);
 	
 		        break;
+		    case "new":
+		    	$inner_content = file_get_contents("new_page.html");
+		       	$controls = file_get_contents("new_controls.html");
+
+		        // Update template with controls
+		        $template = str_replace("<%CONTROLS%>", $controls, $template);
+		    	break;
 		    default:
 		    	$inner_template = file_get_contents("custom.html");
+		    	$controls = file_get_contents("custom_controls.html");
+
+		        // Update template with controls
+		        $template = str_replace("<%CONTROLS%>", $controls, $template);
 
 		    	// Get content of page
 				$page_content_query = mysql_query("SELECT `Content` FROM `pages` WHERE `Title` = '$page'");
