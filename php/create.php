@@ -1,1 +1,0 @@
-//INSERT INTO `shoutout_cms`.`pages` (`Title`, `Content`) VALUES ('Erwan Gets Rich', 'erwan makes lots of moneys yes he does i swears it');

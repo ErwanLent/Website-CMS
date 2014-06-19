@@ -106,6 +106,7 @@
 		    	$controls = file_get_contents("custom_controls.html");
 
 		        // Update template with controls
+		        $controls = str_replace("<%PAGE%>", urlencode($page), $controls);
 		        $template = str_replace("<%CONTROLS%>", $controls, $template);
 
 		    	// Get content of page

@@ -35,6 +35,7 @@ body {
 .publish-controls
 {
 	margin-top: 35px;
+  margin-bottom: 50px;
 }
 
 .header-input
@@ -84,7 +85,7 @@ body {
 	position: absolute;
 	width: 128px;
 	height: 128px;
-	background-image: url('/images/loading.gif');
+	background-image: url('../images/loading.gif');
 	opacity: 1;
 	z-index: 1100;
 	left:0;

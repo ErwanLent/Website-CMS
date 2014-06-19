@@ -39,8 +39,11 @@
 			$new_title = mysql_real_escape_string($_POST["newTitle"]);
 			$new_content = mysql_real_escape_string($_POST["newContent"]);
 
+			$current_date = getdate();
+			$date = "$current_date[month] $current_date[mday], $current_date[year]";
+
 			// Update db content
-			mysql_query("INSERT INTO `shoutout_cms`.`pages` (`Title`, `Content`) VALUES ('$new_title', '$new_content');");
+			mysql_query("INSERT INTO `shoutout_cms`.`pages` (`Title`, `Content`, `Date`) VALUES ('$new_title', '$new_content', '$date');");
 
 			echo "true";
 

@@ -155,6 +155,7 @@ function finishAnimation(response, successMessage)
           $('body').css('overflow', 'auto');
           $('.message-bar').css('background-color', 'green');
           $('.message-bar').html(successMessage);
+          $("html, body").animate({ scrollTop: 0 }, "slow");
           $('.message-bar').slideToggle();
         });
       });
@@ -162,6 +163,7 @@ function finishAnimation(response, successMessage)
   }
   else
   {
+    console.log(response);
     // Failure
     setTimeout(function() {
       $('.loader').fadeOut(function() {
@@ -169,6 +171,7 @@ function finishAnimation(response, successMessage)
           $('body').css('overflow', 'auto');
           $('.message-bar').css('background-color', 'red');
           $('.message-bar').html('An error occurred.');
+          $("html, body").animate({ scrollTop: 0 }, "slow");
           $('.message-bar').slideToggle();
         });
       });
