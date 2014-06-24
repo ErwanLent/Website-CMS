@@ -1,5 +1,5 @@
 var animationSpeed = 2500;
-
+var x;
 $(document).ready(function() {
   $('[data-toggle=offcanvas]').click(function() {
     $('.row-offcanvas').toggleClass('active');
@@ -14,6 +14,17 @@ $(document).ready(function() {
   // Start editor
   var elements = document.querySelectorAll('.editable'),
     editor = new MediumEditor(elements);
+
+  $(function () {
+    $('.editable').mediumInsert({
+      editor: editor,
+      addons: {
+        images: {}
+      }
+    });
+  });
+
+  $("[data-addon='embeds']").remove();
 
   // Elastic text areas
   $('.content-input').elastic();
@@ -60,7 +71,7 @@ $(document).ready(function() {
       case "media":
         // Content to update
         var firstTitle = $('#first-title').val();
-        var firstContent = $('.editable').html();
+        var firstContent = getDictionaryValues(editor.serialize());
 
         // Post updated content
         $.post( "php/publish.php", { 
@@ -74,8 +85,8 @@ $(document).ready(function() {
       case "new":
         // Content to update
         var newTitle = $('#new-title').val();
-        var newContent = $('.editable').html();
-
+        var content = getDictionaryValues(editor.serialize());
+        
         // Post updated content
         $.post( "php/publish.php", { 
             page : page,
@@ -90,7 +101,7 @@ $(document).ready(function() {
         break;
       default:
         // Content to update
-        var content = $('.editable').html();
+        var content = getDictionaryValues(editor.serialize());
 
         // Post updated content
         $.post( "php/publish.php", { 
@@ -143,6 +154,18 @@ function getUrlVars() {
         vars[key] = value;
     });
     return vars;
+}
+
+function getDictionaryValues(dictionary)
+{
+  var keys = Object.keys(dictionary);
+  var finalString = "";
+
+  keys.forEach(function(key){
+      finalString += dictionary[key].value;
+  });
+
+  return finalString;
 }
 
 function finishAnimation(response, successMessage)
