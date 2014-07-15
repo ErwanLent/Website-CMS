@@ -85,7 +85,7 @@ $(document).ready(function() {
       case "new":
         // Content to update
         var newTitle = $('#new-title').val();
-        var content = getDictionaryValues(editor.serialize());
+        var newContent = getDictionaryValues(editor.serialize());
         
         // Post updated content
         $.post( "php/publish.php", { 
